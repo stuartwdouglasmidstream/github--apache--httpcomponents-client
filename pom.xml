@@ -1,48 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-   ====================================================================
-   Licensed to the Apache Software Foundation (ASF) under one
-   or more contributor license agreements.  See the NOTICE file
-   distributed with this work for additional information
-   regarding copyright ownership.  The ASF licenses this file
-   to you under the Apache License, Version 2.0 (the
-   "License"); you may not use this file except in compliance
-   with the License.  You may obtain a copy of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing,
-   software distributed under the License is distributed on an
-   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-   KIND, either express or implied.  See the License for the
-   specific language governing permissions and limitations
-   under the License.
-   ====================================================================
-
-   This software consists of voluntary contributions made by many
-   individuals on behalf of the Apache Software Foundation.  For more
-   information on the Apache Software Foundation, please see
-   <http://www.apache.org />.
- --><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.apache.httpcomponents</groupId>
     <artifactId>httpcomponents-parent</artifactId>
     <version>11</version>
   </parent>
-  <modelVersion>4.0.0</modelVersion>
   <artifactId>httpcomponents-client</artifactId>
-  <name>Apache HttpComponents Client</name>
   <version>4.5.13</version>
+  <packaging>pom</packaging>
+  <name>Apache HttpComponents Client</name>
   <description>Apache HttpComponents Client is a library of components for building client side HTTP services</description>
   <url>http://hc.apache.org/httpcomponents-client-ga/</url>
   <inceptionYear>1999</inceptionYear>
-  <packaging>pom</packaging>
-
   <organization>
     <name>The Apache Software Foundation</name>
     <url>http://www.apache.org/</url>
   </organization>
-
   <licenses>
     <license>
       <name>Apache License, Version 2.0</name>
@@ -50,36 +25,40 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-
+  <modules>
+    <module>httpclient</module>
+    <module>httpmime</module>
+    <module>fluent-hc</module>
+    <module>httpclient-cache</module>
+    <module>httpclient-win</module>
+    <module>httpclient-osgi</module>
+  </modules>
+  <scm>
+    <connection>scm:git:https://git-wip-us.apache.org/repos/asf/httpcomponents-client.git</connection>
+    <developerConnection>scm:git:https://git-wip-us.apache.org/repos/asf/httpcomponents-client.git</developerConnection>
+    <tag>4.5.13</tag>
+    <url>https://github.com/apache/httpcomponents-client/tree/${project.scm.tag}</url>
+  </scm>
   <issueManagement>
     <system>Jira</system>
     <url>http://issues.apache.org/jira/browse/HTTPCLIENT</url>
   </issueManagement>
-
-  <scm>
-    <connection>scm:git:https://git-wip-us.apache.org/repos/asf/httpcomponents-client.git</connection>
-    <developerConnection>scm:git:https://git-wip-us.apache.org/repos/asf/httpcomponents-client.git</developerConnection>
-    <url>https://github.com/apache/httpcomponents-client/tree/${project.scm.tag}</url>
-    <tag>4.5.13</tag>
-  </scm>
-
   <properties>
+    <api.comparison.version>4.5</api.comparison.version>
     <maven.compiler.source>1.6</maven.compiler.source>
-    <maven.compiler.target>1.6</maven.compiler.target>
+    <mockito.version>1.10.19</mockito.version>
     <httpcore.version>4.4.13</httpcore.version>
-    <commons-logging.version>1.2</commons-logging.version>
-    <commons-codec.version>1.11</commons-codec.version>
+    <hc.stylecheck.version>1</hc.stylecheck.version>
+    <easymock.version>2.5.2</easymock.version>
     <ehcache.version>2.6.11</ehcache.version>
+    <maven.compiler.target>1.6</maven.compiler.target>
     <memcached.version>2.12.3</memcached.version>
     <slf4j.version>1.7.25</slf4j.version>
+    <commons-logging.version>1.2</commons-logging.version>
     <junit.version>4.11</junit.version>
-    <easymock.version>2.5.2</easymock.version>
-    <mockito.version>1.10.19</mockito.version>
+    <commons-codec.version>1.11</commons-codec.version>
     <jna.version>4.5.2</jna.version>
-    <hc.stylecheck.version>1</hc.stylecheck.version>
-    <api.comparison.version>4.5</api.comparison.version>
   </properties>
-
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -148,16 +127,6 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-
-  <modules>
-    <module>httpclient</module>
-    <module>httpmime</module>
-    <module>fluent-hc</module>
-    <module>httpclient-cache</module>
-    <module>httpclient-win</module>
-    <module>httpclient-osgi</module>
-  </modules>
-
   <build>
     <plugins>
       <plugin>
@@ -189,7 +158,6 @@
         </executions>
         <configuration>
           <archive>
-            <!-- Ensure source jars have full manifest entries (note: defaults aren't suitable) -->
             <manifestEntries>
               <Specification-Title>HttpComponents ${project.name}</Specification-Title>
               <Specification-Version>${project.version}</Specification-Version>
@@ -213,7 +181,6 @@
           </execution>
         </executions>
         <configuration>
-          <!-- reduce console output. Can override with -Dquiet=false -->
           <quiet>true</quiet>
           <links>
             <link>http://docs.oracle.com/javase/6/docs/api/</link>
@@ -224,6 +191,16 @@
       <plugin>
         <groupId>com.agilejava.docbkx</groupId>
         <artifactId>docbkx-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>tutorial-site</id>
+            <phase>pre-site</phase>
+            <goals>
+              <goal>generate-html</goal>
+              <goal>generate-pdf</goal>
+            </goals>
+          </execution>
+        </executions>
         <dependencies>
           <dependency>
             <groupId>org.docbook</groupId>
@@ -232,16 +209,6 @@
             <scope>runtime</scope>
           </dependency>
         </dependencies>
-        <executions>
-          <execution>
-            <id>tutorial-site</id>
-            <goals>
-              <goal>generate-html</goal>
-              <goal>generate-pdf</goal>
-            </goals>
-            <phase>pre-site</phase>
-          </execution>
-        </executions>
         <configuration>
           <includes>index.xml</includes>
           <chunkedOutput>true</chunkedOutput>
@@ -269,41 +236,40 @@
                 <include name="**/*.jpg" />
               </fileset>
             </copy>
-            <copy file="target/docbkx/pdf/index.pdf" tofile="target/site/tutorial/pdf/httpclient-tutorial.pdf" failonerror="false" />
+            <copy tofile="target/site/tutorial/pdf/httpclient-tutorial.pdf" failonerror="false" file="target/docbkx/pdf/index.pdf" />
           </postProcess>
         </configuration>
       </plugin>
-        <plugin>
-          <artifactId>maven-resources-plugin</artifactId>
-          <executions>
-            <execution>
-              <id>copy-resources</id>
-              <phase>pre-site</phase>
-              <goals>
-                <goal>copy-resources</goal>
-              </goals>
-              <configuration>
-                <outputDirectory>${basedir}/target/site/examples</outputDirectory>
-                <resources>
-                  <resource>
-                    <directory>src/examples</directory>
-                    <filtering>false</filtering>
-                  </resource>
-                </resources>
-              </configuration>
-            </execution>
-          </executions>
-        </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>copy-resources</id>
+            <phase>pre-site</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${basedir}/target/site/examples</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>src/examples</directory>
+                  <filtering>false</filtering>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <configuration>
-          <encoding>UTF-8</encoding>
-        </configuration>
         <executions>
           <execution>
             <id>validate-main</id>
             <phase>validate</phase>
+            <goals>
+              <goal>checkstyle</goal>
+            </goals>
             <configuration>
               <configLocation>hc-stylecheck/default.xml</configLocation>
               <headerLocation>hc-stylecheck/asl2.header</headerLocation>
@@ -312,13 +278,13 @@
               <linkXRef>false</linkXRef>
               <sourceDirectory>${basedir}/src/main</sourceDirectory>
             </configuration>
-            <goals>
-              <goal>checkstyle</goal>
-            </goals>
           </execution>
           <execution>
             <id>validate-test</id>
             <phase>validate</phase>
+            <goals>
+              <goal>checkstyle</goal>
+            </goals>
             <configuration>
               <configLocation>hc-stylecheck/default.xml</configLocation>
               <headerLocation>hc-stylecheck/asl2.header</headerLocation>
@@ -327,13 +293,13 @@
               <linkXRef>false</linkXRef>
               <sourceDirectory>${basedir}/src/test</sourceDirectory>
             </configuration>
-            <goals>
-              <goal>checkstyle</goal>
-            </goals>
           </execution>
           <execution>
             <id>validate-examples</id>
             <phase>validate</phase>
+            <goals>
+              <goal>checkstyle</goal>
+            </goals>
             <configuration>
               <configLocation>hc-stylecheck/minimal.xml</configLocation>
               <headerLocation>hc-stylecheck/asl2.header</headerLocation>
@@ -342,11 +308,11 @@
               <linkXRef>false</linkXRef>
               <sourceDirectory>${basedir}/src/examples</sourceDirectory>
             </configuration>
-            <goals>
-              <goal>checkstyle</goal>
-            </goals>
           </execution>
         </executions>
+        <configuration>
+          <encoding>UTF-8</encoding>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -355,33 +321,12 @@
           <comparisonVersion>${api.comparison.version}</comparisonVersion>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>org.apache.rat</groupId>
-        <artifactId>apache-rat-plugin</artifactId>
-        <executions>
-          <execution>
-            <phase>verify</phase>
-            <goals>
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <excludes>
-            <exclude>src/docbkx/resources/**</exclude>
-            <exclude>src/test/resources/*.truststore</exclude>
-            <exclude>.checkstyle</exclude>
-          </excludes>
-        </configuration>
-      </plugin>
     </plugins>
   </build>
-
   <reporting>
     <plugins>
       <plugin>
         <artifactId>maven-project-info-reports-plugin</artifactId>
-        <inherited>false</inherited>
         <reportSets>
           <reportSet>
             <reports>
@@ -395,8 +340,8 @@
             </reports>
           </reportSet>
         </reportSets>
+        <inherited>false</inherited>
       </plugin>
-
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>clirr-maven-plugin</artifactId>
@@ -404,11 +349,8 @@
           <comparisonVersion>${api.comparison.version}</comparisonVersion>
         </configuration>
       </plugin>
-
     </plugins>
   </reporting>
-
-  <!-- remove once 'ignore' configuration can be configured through HC Parent -->
   <profiles>
     <profile>
       <id>animal-sniffer</id>
@@ -440,10 +382,8 @@
               <ignores>java.util.concurrent.ConcurrentHashMap*</ignores>
             </configuration>
           </plugin>
-
         </plugins>
       </build>
     </profile>
   </profiles>
-
 </project>
